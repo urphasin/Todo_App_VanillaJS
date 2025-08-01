@@ -1,3 +1,12 @@
+/*Alter Task Panel Here*/
+.alterTaskPanel {
+    display: flex;
+    justify-content: space-between;
+}
+/*End of Alter Task Panel Here*/
+
+
+/*Custom List Style here*/
 .custom-task {
     background-color: #f8f9fa;
     color: #333;
@@ -11,3 +20,4 @@
 .custom-task:hover {
     background-color: #e9ecef;
 }
+/*End of Custom List Style Here*/
