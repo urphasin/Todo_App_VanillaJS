@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 /*End of Load tasks from Storage Logic here*/
 
-/* Add-task Logic here*/
+/* Add task List-Item Logic here*/
 document.getElementById("taskInput").addEventListener('keydown', function(e) {
     if(e.key === 'Enter') {
         checkAndRenderUI();
@@ -59,9 +59,9 @@ function saveTaskToStorage(task) {
     tasks.push(task);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
-/* End of Add-task Logic here*/
+/* End of Add task List-Item Logic here*/
 
-/*Remove-task Logic here*/
+/*Remove task from localstorage Logic here*/
 function removeTaskFromStorage(taskToRemove) {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
@@ -73,4 +73,4 @@ function removeTaskFromStorage(taskToRemove) {
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
-/*End of Remove-task Logic here*/
+/*End of Remove task from localstorage Logic here*/
