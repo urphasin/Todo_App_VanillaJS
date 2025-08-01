@@ -30,9 +30,27 @@ function checkAndRenderUI() {
 function addTaskToList(task) {
     const ul = document.getElementById('taskList');
     const li = document.createElement('li');
+    const input = document.getElementById('taskInput');
 
     li.textContent = task;
     li.className = "list-group-item custom-task";
+
+    /*Delete task button logic here*/
+    const delBtn = document.createElement('button');
+    delBtn.textContent = '🗑️';
+    delBtn.className = 'btn btn-sm btn-danger float-end';
+
+    /*Handle delete from Storage Logic here*/
+    delBtn.addEventListener('click', function() {
+       ul.removeChild(li);
+       removeTaskFromStorage(task);
+       input.focus();
+    });
+    /*End of Handle delete from Storage Logic here*/
+
+
+    li.appendChild(delBtn);
+    /*End of Delete task button here*/
 
     ul.appendChild(li);
 }
@@ -43,7 +61,16 @@ function saveTaskToStorage(task) {
 }
 /* End of Add-task Logic here*/
 
-
 /*Remove-task Logic here*/
+function removeTaskFromStorage(taskToRemove) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
+    // Remove first matching in case of duplicates
+    const index = tasks.indexOf(taskToRemove);
+    if (index !== -1) {
+        tasks.splice(index, 1);
+    }
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 /*End of Remove-task Logic here*/
