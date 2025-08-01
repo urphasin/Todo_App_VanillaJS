@@ -1,3 +1,5 @@
+let draggedItem = null;
+
 /*Load tasks from Storage Logic here*/
 window.addEventListener('DOMContentLoaded', function() {
    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -34,6 +36,40 @@ function addTaskToList(task) {
 
     li.textContent = task;
     li.className = "list-group-item custom-task";
+
+    /*Drag and Drop Logic here*/
+    {
+        li.setAttribute('draggable', 'true');
+
+        li.addEventListener('dragstart', function () {
+            draggedItem = li;
+            setTimeout(function () {
+                li.style.display = 'none';
+            }, 0);
+        });
+
+        li.addEventListener('dragend', function () {
+            setTimeout(function () {
+                draggedItem.style.display = 'block';
+                draggedItem = null;
+                updateStorageFromDOM();
+            }, 0);
+        });
+
+        li.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        });
+
+        li.addEventListener('drop', function (e) {
+            e.preventDefault();
+            if (li !== draggedItem) {
+                const ul = document.getElementById('taskList');
+                ul.insertBefore(draggedItem, li);
+            }
+        });
+    }
+    /*End of Drag and Drop Logic here*/
+
 
     /*Delete task button logic here*/
     const delBtn = document.createElement('button');
@@ -74,3 +110,20 @@ function removeTaskFromStorage(taskToRemove) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 /*End of Remove task from localstorage Logic here*/
+
+/*Update Storage From DOM Logic here*/
+function updateStorageFromDOM() {
+    const tasks = [];
+    const lis = document.querySelectorAll("#taskList li");
+
+    lis.forEach(li => {
+        // Extract just the task text, ignoring the delete button
+        const taskText = li.childNodes[0].textContent.trim();
+        tasks.push(taskText);
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+/*End of Update Storage From DOM Logic here*/
+
+
