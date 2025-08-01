@@ -13,9 +13,9 @@ document.getElementById("taskInput").addEventListener('keydown', function(e) {
 })
 document.getElementById('addTask').addEventListener('click', checkAndRenderUI);
 function checkAndRenderUI() {
-    const ul = document.getElementById('taskList');
+    // const ul = document.getElementById('taskList');
     const input = document.getElementById('taskInput');
-    const li = document.createElement('li');
+    // const li = document.createElement('li');
 
     const task = input.value.trim();
 
